@@ -4,8 +4,7 @@ import {
   number,
   func,
 } from 'prop-types';
-import {withStyles} from 'material-ui';
-import {Link} from 'react-router-dom';
+import {withStyles} from '@material-ui/core';
 import {hot} from 'react-hot-loader';
 
 const styles = (theme) => ({
@@ -40,19 +39,11 @@ export default class List extends React.Component {
   render() {
     const {
       classes,
-      count,
     } = this.props;
 
     return (
       <div>
-        <div className={classes.root}>JSS demo</div>
-        <ul>
-          <li><Link to="/detail">Redirect and lazy load detail page</Link></li>
-        </ul>
-        <div onClick={this.onClick.bind(this)}>
-          Click me, to mock async callback:
-          {count}
-        </div>
+        <div className={classes.root}>JSS demo</div>  
       </div>
     );
   }
