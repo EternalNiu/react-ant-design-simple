@@ -13,9 +13,10 @@
   "author": "yhhcg",
   "license": "MIT",
   "dependencies": {
+    "@material-ui/core": "^1.1.0",
     "babel-polyfill": "^6.26.0",
     "history": "^4.7.2",
-    "material-ui": "^1.0.0-beta.39",
+    "ibuscloud-ui": "^2.0.3",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
