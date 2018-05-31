@@ -23,7 +23,6 @@ module.exports = merge(common, {
           API_PROTOCOL: JSON.stringify('http'),
           API_HOSTNAME: JSON.stringify('192.168.100.197'),
           API_PORT: JSON.stringify('8080'),
-          API_VERSION: JSON.stringify('mdm/v1'),
           IS_CORS: true,
         },
       }

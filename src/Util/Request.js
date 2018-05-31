@@ -5,7 +5,6 @@ const {
   API_PROTOCOL,
   API_HOSTNAME,
   API_PORT,
-  API_VERSION,
   IS_CORS,
 } = process.env;
 
