@@ -1,5 +1,5 @@
 {
-  "name": "react-seed-upgraded",
+  "name": "data-quality",
   "version": "0.0.1",
   "description": "webpack 4.0",
   "main": "index.js",
@@ -10,7 +10,7 @@
     "build:prod": "webpack --config ./config/webpack.prod.js",
     "doc": "jsdoc src -r"
   },
-  "author": "yhhcg",
+  "author": "Gyuumaou",
   "license": "MIT",
   "dependencies": {
     "@material-ui/core": "^1.1.0",

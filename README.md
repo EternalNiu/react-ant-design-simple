@@ -1,6 +1,3 @@
-# react-seed-upgraded
-
-Import redux base on [react-seed-simplify](https://github.com/yhhcg/react-seed-simplify)
 
 ## Developing
 
