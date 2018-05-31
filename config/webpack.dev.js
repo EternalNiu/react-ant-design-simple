@@ -16,6 +16,7 @@ module.exports = merge(common, {
   },
 
   plugins: [
+    new webpack.HotModuleReplacementPlugin(), // 热替换插件
     new webpack.DefinePlugin(
       {
         'process.env': {
