@@ -31,8 +31,13 @@ class ProblemRoute extends React.Component {
 
     return (
       <div>
-        <Title title='问题线路' />
-        <CardWithTitle>你好</CardWithTitle>
+        <Title title='线路问题' />
+        <CardWithTitle
+          title='nihao'
+          component='sds'
+        >
+          你好
+        </CardWithTitle>
       </div>
     );
   }

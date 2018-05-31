@@ -6,6 +6,7 @@ import {
 } from 'prop-types';
 import {
   Card,
+  Grid,
   Typography,
   withStyles,
 } from '@material-ui/core';
@@ -33,6 +34,7 @@ class CardWithTitle extends React.Component {
     classes: object,
     title: string,
     children: node,
+    component: node,
   };
 
   static defaultProps = {
@@ -47,16 +49,37 @@ class CardWithTitle extends React.Component {
       classes,
       title,
       children,
+      component,
     } = this.props;
 
     return (
-      <Card className={classes.root}>
-        <Typography
-          className={classes.title}
-          variant='title'
-        >
-          {title}
-        </Typography>
+      <Card className={classes.title}>
+        {
+          component ?
+          (
+              <Grid
+                container
+                justify='space-between'
+                alignItems='flex-end'
+                // className={classes.title}
+              >
+                <Grid item>
+                  <Typography variant='headline'>
+                    {title}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  {component}
+                </Grid>
+              </Grid>
+            )
+          :
+            (
+              <Typography variant='headline'>
+                {title}
+              </Typography>
+            )
+        }
         <div className={classes.container}>
           {children}
         </div>
