@@ -41,6 +41,21 @@ export default class Router extends React.Component {
         return <div>Loading...</div>;
       },
     });
+
+    this.ProblemRoute = lodable({
+      loader: () => {
+        injectAsyncReducer( // Aynchronously load reducer
+          context.store,
+          'problemRoute', // Reducer name
+          require('./ProblemRoute/reducer').default // Reducer function
+        );
+
+        return import('./ProblemRoute/container');
+      },
+      loading: () => {
+        return <div>Loading...</div>;
+      },
+    });
   }
 
   /**
@@ -54,6 +69,11 @@ export default class Router extends React.Component {
           matchPath: /(^\/list$)|(^\/$)/,
           path: '/list',
           text: '线路管理',
+        }, {
+          icon: <use href="#icon-icon_line"></use>,
+          matchPath: /(^\/problemRoute$)|(^\/$)/,
+          path: '/problemRoute',
+          text: '问题线路',
         }]}
         rootUrl={{
           matchPath: /(^\/list$)|(^\/$)/,
@@ -65,6 +85,7 @@ export default class Router extends React.Component {
             <Redirect to='/list' />
           )} />
           <Route exact path="/list" component={this.ListPage} />
+          <Route exact path="/problemRoute" component={this.ProblemRoute} />
         </Switch>
       </AppFrame>
     );
