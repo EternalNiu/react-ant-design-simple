@@ -4,6 +4,8 @@ import {
 } from 'prop-types';
 import {withStyles} from '@material-ui/core';
 import {hot} from 'react-hot-loader';
+import Title from 'Common/Title';
+import CardWithTitle from 'Common/CardWithTitle';
 
 const styles = (theme) => ({
 });
@@ -29,7 +31,8 @@ class ProblemRoute extends React.Component {
 
     return (
       <div>
-        <div>问题线路</div>
+        <Title title='问题线路' />
+        <CardWithTitle>你好</CardWithTitle>
       </div>
     );
   }
