@@ -16,6 +16,16 @@ module.exports = merge(common, {
   },
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin(), // 热替换插件
+    new webpack.DefinePlugin(
+      {
+        'process.env': {
+          API_PROTOCOL: JSON.stringify('http'),
+          API_HOSTNAME: JSON.stringify('192.168.100.197'),
+          API_PORT: JSON.stringify('8080'),
+          API_VERSION: JSON.stringify('mdm/v1'),
+          IS_CORS: true,
+        },
+      }
+    ),
   ],
 });

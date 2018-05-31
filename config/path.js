@@ -11,4 +11,6 @@ module.exports = {
   appPath: resolveApp('.'),
   appDist: resolveApp('dist'),
   appSrc: resolveApp('src'),
+  utilPath: resolveApp('src/Util'),
+  commonPath: resolveApp('src/Common'),
 };

@@ -77,4 +77,10 @@ module.exports = {
       },
     },
   },
+  resolve: {
+    alias: {
+      'Util': path.utilPath,
+      'Common': path.commonPath,
+    },
+  },
 };
