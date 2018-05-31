@@ -1,11 +1,13 @@
 import React from 'react';
 import {
-  BrowserRouter,
   Route,
   Switch,
+  Redirect,
 } from 'react-router-dom';
 import {object} from 'prop-types';
 import lodable from 'react-loadable';
+
+import AppFrame from './AppFrame/container';
 
 // Dynamically load reducer
 import injectAsyncReducer from './injectAsyncReducer';
@@ -39,15 +41,6 @@ export default class Router extends React.Component {
         return <div>Loading...</div>;
       },
     });
-
-    this.DetailPage = lodable({
-      loader: () => {
-        return import('./Detail');
-      },
-      loading: () => {
-        return <div>Loading...</div>;
-      },
-    });
   }
 
   /**
@@ -55,10 +48,25 @@ export default class Router extends React.Component {
    */
   render() {
     return (
-      <Switch>
-        <Route exact path="/" component={this.ListPage} />
-        <Route exact path="/detail" component={this.DetailPage} />
-      </Switch>
+      <AppFrame
+        navs={[{
+          icon: <use href="#icon-icon_line"></use>,
+          matchPath: /(^\/list$)|(^\/$)/,
+          path: '/list',
+          text: '线路管理',
+        }]}
+        rootUrl={{
+          matchPath: /(^\/list$)|(^\/$)/,
+          path: '/home',
+        }}
+      >
+        <Switch>
+          <Route exact path='/' render={() => (
+            <Redirect to='/list' />
+          )} />
+          <Route exact path="/list" component={this.ListPage} />
+        </Switch>
+      </AppFrame>
     );
   }
 }

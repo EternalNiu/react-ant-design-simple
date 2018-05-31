@@ -13,6 +13,7 @@ import configureStore from './store';
 import App from './app';
 import rootSaga from './saga';
 
+import './iconfont';
 /**
  * Contains HTML5 browser history instance
  */
