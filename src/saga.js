@@ -1,6 +1,8 @@
 import {all} from 'redux-saga/effects';
 
 import home from './Home/saga';
+import problemRoute from './ProblemRoute/saga';
+
 
 /**
  * Root saga
@@ -8,5 +10,6 @@ import home from './Home/saga';
 export default function* rootSaga() {
   yield all([
     home(),
+    problemRoute(),
   ]);
 }

@@ -41,6 +41,21 @@ export default class Router extends React.Component {
         return <div>Loading...</div>;
       },
     });
+
+    this.ProblemRoute = lodable({
+      loader: () => {
+        injectAsyncReducer( // Aynchronously load reducer
+          context.store,
+          'problemRoute', // Reducer name
+          require('./ProblemRoute/reducer').default // Reducer function
+        );
+
+        return import('./ProblemRoute/container');
+      },
+      loading: () => {
+        return <div>Loading...</div>;
+      },
+    });
   }
 
   /**
@@ -51,9 +66,9 @@ export default class Router extends React.Component {
       <AppFrame
         navs={[{
           icon: <use href="#icon-icon_line"></use>,
-          matchPath: /(^\/list$)|(^\/$)/,
-          path: '/list',
-          text: '线路管理',
+          matchPath: /(^\/problemRoute$)|(^\/$)/,
+          path: '/problemRoute',
+          text: '问题线路',
         }]}
         rootUrl={{
           matchPath: /(^\/home$)|(^\/$)/,
@@ -62,9 +77,10 @@ export default class Router extends React.Component {
       >
         <Switch>
           <Route exact path='/' render={() => (
-            <Redirect to='/list' />
+            <Redirect to='/home' />
           )} />
           <Route exact path="/home" component={this.HomePage} />
+          <Route exact path="/problemRoute" component={this.ProblemRoute} />
         </Switch>
       </AppFrame>
     );
