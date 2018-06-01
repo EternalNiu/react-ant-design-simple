@@ -27,15 +27,15 @@ export default class Router extends React.Component {
   constructor(props, context) {
     super(props);
 
-    this.ListPage = lodable({
+    this.HomePage = lodable({
       loader: () => {
         injectAsyncReducer( // Aynchronously load reducer
           context.store,
-          'list', // Reducer name
-          require('./List/reducer').default // Reducer function
+          'home', // Reducer name
+          require('./Home/reducer').default // Reducer function
         );
 
-        return import('./List/container');
+        return import('./Home/container');
       },
       loading: () => {
         return <div>Loading...</div>;
@@ -56,7 +56,7 @@ export default class Router extends React.Component {
           text: '线路管理',
         }]}
         rootUrl={{
-          matchPath: /(^\/list$)|(^\/$)/,
+          matchPath: /(^\/home$)|(^\/$)/,
           path: '/home',
         }}
       >
@@ -64,7 +64,7 @@ export default class Router extends React.Component {
           <Route exact path='/' render={() => (
             <Redirect to='/list' />
           )} />
-          <Route exact path="/list" component={this.ListPage} />
+          <Route exact path="/home" component={this.HomePage} />
         </Switch>
       </AppFrame>
     );

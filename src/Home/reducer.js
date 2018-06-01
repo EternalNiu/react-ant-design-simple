@@ -44,16 +44,8 @@ const questionsReducer = (state, action) => {
       return {
         ...state,
         isLoading: false,
-        statistics: {
-          route: action.payload.find((statistic) => (
-            statistic.code === 'ROUTE')
-          ).count,
-          stop: action.payload.find((statistic) => (
-            statistic.code === 'STOP')
-          ).count,
-          bus: action.payload.find((statistic) => (
-            statistic.code === 'BUS')
-          ).count,
+        questions: {
+          ...action.payload,
         },
       };
     case FETCH_QUESTIONS_FAILURE:
@@ -93,6 +85,33 @@ const linesReducer = (state, action) => {
   }
 };
 
+const piesReducer = (state, action) => {
+  switch (action.type) {
+    case FETCH_PIES:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case FETCH_PIES_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        pies: action.payload.map(() => {
+          return {
+
+          };
+        }),
+      };
+    case FETCH_PIES_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+      };
+    default:
+      return state;
+  }
+};
+
 /**
  * Reducer function manipulates home leaf node of redux store
  * @param {Object} state - Previous leaf node of redux store
@@ -102,19 +121,26 @@ const linesReducer = (state, action) => {
  */
 export default function Reducer(state=initialState, action) {
   switch (action.type) {
-    case FETCH_STATISTICS:
-    case FETCH_STATISTICS_SUCCESS:
-    case FETCH_STATISTICS_FAILURE:
+    case FETCH_QUESTIONS:
+    case FETCH_QUESTIONS_SUCCESS:
+    case FETCH_QUESTIONS_FAILURE:
       return {
         ...state,
-        statistics: statisticsReducer(state.statistics, action),
+        questions: questionsReducer(state.questions, action),
       };
-    case FETCH_ALARMS:
-    case FETCH_ALARMS_SUCCESS:
-    case FETCH_ALARMS_FAILURE:
+    case FETCH_LINES:
+    case FETCH_LINES_SUCCESS:
+    case FETCH_LINES_FAILURE:
       return {
         ...state,
-        alarms: alarmsReducer(state.alarms, action),
+        lines: linesReducer(state.lines, action),
+      };
+    case FETCH_PIES:
+    case FETCH_PIES_SUCCESS:
+    case FETCH_PIES_FAILURE:
+      return {
+        ...state,
+        pies: piesReducer(state.pies, action),
       };
     default:
       return state;

@@ -9,6 +9,8 @@ import {Grid, withStyles} from '@material-ui/core';
 import {hot} from 'react-hot-loader';
 
 import Cards from './components/Cards';
+import Lines from './components/Lines';
+import Pies from './components/Pies';
 
 const styles = (theme) => ({
   root: {
@@ -58,10 +60,10 @@ class Home extends React.Component {
         <Cards questions={questions} />
         <Grid container spacing={24}>
           <Grid item xs={6}>
-
+            <Lines/>
           </Grid>
           <Grid item xs={6}>
-
+            <Pies/>
           </Grid>
         </Grid>
       </div>

@@ -1,54 +1,71 @@
-/**
- * This module exports saga
- */
+/* eslint-disable require-jsdoc */
 import {put, takeEvery} from 'redux-saga/effects';
 
 import actions from './actions';
 import {requestProtected} from 'Util/Request';
 
 const {
-  FETCH_STATISTICS,
-  FETCH_ALARMS,
-  fetchStatisticsSuccess,
-  fetchStatisticsFailure,
-  fetchAlarmsSuccess,
-  fetchAlarmsFailure,
+  FETCH_QUESTIONS,
+  fetchQuestionsSuccess,
+  fetchQuestionsFailure,
+
+  FETCH_LIES,
+  fetchLinesSuccess,
+  fetchLinesFailure,
+
+  FETCH_PIES,
+  fetchPiesSuccess,
+  fetchPiesFailure,
 } = actions;
 
-/**
- * @param  {object} options
- * @yield {Action}
- */
-export function* fetchStatistics() {
+function* fetchQuestions() {
   try {
-    const response = yield requestProtected('index/statistics');
+    // const response = yield requestProtected('index/statistics');
+    const response = {
+      data: {
+
+      },
+    };
 
     // Fire success action
-    yield put(fetchStatisticsSuccess(response.data));
+    yield put(fetchQuestionsSuccess(response.data));
   } catch (err) {
     // Fire failure action
-    yield put(fetchStatisticsFailure(err));
+    yield put(fetchQuestionsFailure(err));
   }
 }
 
-/**
- * @param  {object} options
- * @yield {Action}
- */
-export function* fetchAlarms(options) {
+function* fetchLines(options) {
   try {
-    const {
-      limit,
-      page,
-    } = options.payload;
+    // const response = yield requestProtected();
+    const response = {
+      data: {
 
-    const response = yield requestProtected(`index/alerts?limit=${limit}&page=${page}`);
+      },
+    };
 
     // Fire success action
-    yield put(fetchAlarmsSuccess(response));
+    yield put(fetchLinesSuccess(response));
   } catch (err) {
     // Fire failure action
-    yield put(fetchAlarmsFailure(err));
+    yield put(fetchLinesFailure(err));
+  }
+}
+
+function* fetchPies(options) {
+  try {
+    // const response = yield requestProtected();
+    const response = {
+      data: {
+
+      },
+    };
+
+    // Fire success action
+    yield put(fetchPiesSuccess(response));
+  } catch (err) {
+    // Fire failure action
+    yield put(fetchPiesFailure(err));
   }
 }
 
@@ -56,7 +73,8 @@ export function* fetchAlarms(options) {
  * Watch api request
  */
 export default function* () {
-  yield takeEvery(FETCH_STATISTICS, fetchStatistics);
-  yield takeEvery(FETCH_ALARMS, fetchAlarms);
+  yield takeEvery(FETCH_QUESTIONS, fetchQuestions);
+  yield takeEvery(FETCH_LIES, fetchLines);
+  yield takeEvery(FETCH_PIES, fetchPies);
 }
 

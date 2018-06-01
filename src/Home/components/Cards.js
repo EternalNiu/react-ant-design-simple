@@ -15,38 +15,6 @@ const styles = (theme) => ({
   root: {
     marginBottom: theme.spacing.unit * 4 - 2,
   },
-  control: {
-    color: '#A5A4BF',
-  },
-  content1: {
-    color: '#3B86FF',
-  },
-  content2: {
-    color: '#A4A1FB',
-  },
-  content3: {
-    color: '#FFC06A',
-  },
-  border1: {
-    border: '1px solid #3B86FF',
-  },
-  border2: {
-    border: '1px solid #A4A1FB',
-  },
-  border3: {
-    border: '1px solid #FFC06A',
-  },
-  svgIcon: {
-    width: 25,
-    height: 25,
-  },
-  svgBorder: {
-    height: 38,
-    width: 38,
-    marginTop: 16,
-    marginLeft: 20,
-    borderRadius: '50%',
-  },
 });
 
 /**
@@ -68,25 +36,16 @@ class Cards extends React.PureComponent {
 
     this.cards = [
       {
-        code: 'route',
-        name: '线路',
-        unit: '条',
-        svg: '#icon-index_line',
-        link: '/routes/newRouteInfo',
+        code: 'total',
+        name: '问题总数',
       },
       {
-        code: 'stop',
-        name: '站点',
-        unit: '个',
-        svg: '#icon-index_board',
-        link: '/stops/new',
+        code: 'route',
+        name: '问题站点',
       },
       {
         code: 'bus',
-        name: '车辆',
-        unit: '辆',
-        svg: '#icon-index_car',
-        link: '/buses/new',
+        name: '问题车辆',
       },
     ];
   }
@@ -109,62 +68,7 @@ class Cards extends React.PureComponent {
         {
           this.cards.map((card, index) => (
             <Grid item xs key={card.code}>
-              <Card>
-                <Grid
-                  container
-                  spacing={16}
-                  justify='space-between'
-                >
-                  <Grid item xs container>
-                      <Grid
-                        className={classNames(classes.svgBorder, classes[`border${index+1}`])}
-                        container
-                        justify='center'
-                        alignItems='center'
-                      >
-                        <SvgIcon
-                          classes={{
-                            root: classNames(classes.svgIcon, classes[`content${index+1}`]),
-                          }}
-                        >
-                          <use xlinkHref={card.svg}></use>
-                        </SvgIcon>
-                      </Grid>
-                      <CardContent>
-                        <Typography
-                          variant="title"
-                          className={classes[`content${index+1}`]}
-                        >
-                          {`${questions[card.code]}${card.unit}`}
-                        </Typography>
-                        <Typography
-                          variant="body2"
-                        >
-                          {card.name}
-                        </Typography>
-                      </CardContent>
-                  </Grid>
-                  <Grid
-                    container
-                    item
-                    xs={4}
-                    justify='center'
-                    alignItems='center'
-                    spacing={40}
-                    className={classes.control}
-                  >
-                    <Link to={card.link}>
-                      <SvgIcon
-                        classes={{
-                          root: classes.svgIcon,
-                        }}
-                      >
-                        <use xlinkHref='#icon-add'></use>
-                      </SvgIcon>
-                    </Link>
-                  </Grid>
-                </Grid>
-              </Card>
+              {card.name}
             </Grid>
           ))
         }
