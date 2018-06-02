@@ -59,7 +59,7 @@ module.exports = {
       inject: false,
       template: require('html-webpack-template'),
 
-      title: 'HtmlWebpackPlugin',
+      title: '数据质量',
       appMountId: 'app',
     }),
   ],
