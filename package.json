@@ -14,7 +14,9 @@
   "license": "MIT",
   "dependencies": {
     "@material-ui/core": "^1.1.0",
+    "@material-ui/icons": "^1.1.0",
     "babel-polyfill": "^6.26.0",
+    "classnames": "^2.2.5",
     "history": "^4.7.2",
     "ibuscloud-ui": "^2.0.3",
     "prop-types": "^15.6.1",
