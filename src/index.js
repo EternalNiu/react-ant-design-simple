@@ -12,6 +12,7 @@ import logger from 'redux-logger';
 import configureStore from './store';
 import App from './app';
 import rootSaga from './saga';
+import ThemeProvider from 'ibuscloud-ui/ThemeProvider';
 
 import './iconfont';
 /**
@@ -46,9 +47,11 @@ sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <App />
-    </ConnectedRouter>
+    <ThemeProvider>
+      <ConnectedRouter history={history}>
+        <App />
+      </ConnectedRouter>
+    </ThemeProvider>
   </Provider>,
   document.getElementById('app')
 );
