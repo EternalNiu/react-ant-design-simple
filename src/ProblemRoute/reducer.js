@@ -2,22 +2,73 @@
 import {async, sync} from './actions';
 
 const {
-  DELETE_ROUTE,
-  DELETE_ROUTE_SUCCESS,
-  DELETE_ROUTE_FAILURE,
+  FETCH_FILTERS,
+  FETCH_FILTERS_SUCCESS,
+  FETCH_FILTERS_FAILURE,
+
+  FETCH_PROBLEM_ROUTE,
+  FETCH_PROBLEM_ROUTE_SUCCESS,
+  FETCH_PROBLEM_ROUTE_FAILURE,
 
 } = async;
 
 const {
   ADD_CONDITION,
+  CHANGE_TAB_TITLE,
   REMOVE_CONDITION,
 } = sync;
 /**
  * Initial state value of react store
  */
 const initialState = {
+  columns: [
+      {
+        id: 'routeName',
+        label: '线路名称',
+      },
+      {
+        id: 'routeNo',
+        label: '线路号',
+      },
+      {
+        id: 'startStop',
+        label: '起点站',
+      },
+      {
+        id: 'endStop',
+        label: '终点站',
+      },
+      {
+        id: 'company',
+        label: '公司',
+      },
+      {
+        id: 'problemType',
+        label: '问题类型',
+      },
+      {
+        id: 'detail',
+        label: '详情',
+      },
+      {
+        id: 'dispose',
+        label: '处理状态',
+      },
+      {
+        id: 'error',
+        label: '误报',
+        isNumeric: true,
+      },
+    ],
   conditions: [],
-  route: {
+  routes: {
+    data: [],
+    isLoading: false,
+    limit: 10,
+    page: 1,
+    total: 0,
+  },
+  filters: {
     data: [],
     isLoading: false,
   },
@@ -25,6 +76,50 @@ const initialState = {
 
 function addCondition(state, action) {
   return [...state, action.payload];
+}
+
+function fetchFilters(state, action) {
+  switch (action.type) {
+    case FETCH_FILTERS:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case FETCH_FILTERS_SUCCESS:
+      return {
+        ...state,
+        data: action.payload.data,
+      };
+    case FETCH_FILTERS_FAILURE:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    default:
+      return state;
+  }
+}
+
+function fetchProblemRoute(state, action) {
+  switch (action.type) {
+    case FETCH_PROBLEM_ROUTE:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case FETCH_PROBLEM_ROUTE_SUCCESS:
+      return {
+        ...state,
+        data: action.payload.data,
+      };
+    case FETCH_PROBLEM_ROUTE_FAILURE:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    default:
+      return state;
+  }
 }
 
 function removeCondition(state, action) {
@@ -47,6 +142,20 @@ export default function Reducer(state=initialState, action) {
       return {
         ...state,
         conditions: addCondition(state.conditions, action),
+      };
+    case FETCH_FILTERS:
+    case FETCH_FILTERS_SUCCESS:
+    case FETCH_FILTERS_FAILURE:
+      return {
+        ...state,
+        filters: fetchFilters(state.filters, action),
+      };
+    case FETCH_PROBLEM_ROUTE:
+    case FETCH_PROBLEM_ROUTE_SUCCESS:
+    case FETCH_PROBLEM_ROUTE_FAILURE:
+      return {
+        ...state,
+        routes: fetchProblemRoute(state.routes, action),
       };
     case REMOVE_CONDITION:
       return {
