@@ -2,9 +2,14 @@ import React from 'react';
 import {object, array} from 'prop-types';
 import {
   withStyles,
+  Paper,
 } from '@material-ui/core';
 
 const styles = (theme) => ({
+  root: {
+    height: 380,
+    padding: 20,
+  },
 });
 
 /**
@@ -35,9 +40,9 @@ class Pies extends React.PureComponent {
     } = this.props;
 
     return (
-      <div>
+      <Paper className={classes.root}>
         pies
-      </div>
+      </Paper>
     );
   }
 }

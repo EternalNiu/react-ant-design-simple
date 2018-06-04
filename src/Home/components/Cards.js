@@ -89,7 +89,7 @@ class Cards extends React.PureComponent {
     return (
       <Grid
         container
-        spacing={24}
+        spacing={40}
         className={classes.root}
       >
         {
