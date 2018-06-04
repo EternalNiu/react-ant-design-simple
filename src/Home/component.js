@@ -16,6 +16,9 @@ const styles = (theme) => ({
   root: {
     overflow: 'hidden',
   },
+  paper: {
+    height: 430,
+  },
 });
 
 /**
@@ -45,6 +48,7 @@ class Home extends React.Component {
   componentDidMount() {
     this.props.componentDidMount();
   }
+
   /**
    * Render Home Page
    * @return {Component}
@@ -58,7 +62,7 @@ class Home extends React.Component {
     return (
       <div className={classes.root}>
         <Cards questions={questions} />
-        <Grid container spacing={24}>
+        <Grid container spacing={40} className={classes.paper}>
           <Grid item xs={6}>
             <Lines/>
           </Grid>
