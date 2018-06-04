@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   array,
+  func,
   object,
 } from 'prop-types';
 import {
@@ -29,6 +30,8 @@ class ProblemRoute extends React.Component {
   static propTypes = {
     classes: object,
     columns: array.isRequired,
+    onComponentDidMount: func.isRequired,
+    onComponentWillUnmount: func.isRequired,
   };
 
   /**
@@ -54,6 +57,22 @@ class ProblemRoute extends React.Component {
     this.state = {
       checked: false,
     };
+  }
+
+   /**
+   * componentDidMount
+   */
+  componentDidMount() {
+    const {onComponentDidMount} = this.props;
+    typeof onComponentDidMount === 'function' && onComponentDidMount();
+  }
+
+  /**
+   * componentWillUnmount
+   */
+  componentWillUnmount() {
+    const {onComponentWillUnmount} = this.props;
+    typeof onComponentWillUnmount === 'function' && onComponentWillUnmount();
   }
 
   /**
