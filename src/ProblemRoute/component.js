@@ -5,7 +5,7 @@ import {
 import {withStyles} from '@material-ui/core';
 import {hot} from 'react-hot-loader';
 import Title from 'Common/Title';
-import CardWithTitle from 'Common/CardWithTitle';
+import ProblemTitle from 'Common/ProblemTitle';
 
 const styles = (theme) => ({
 });
@@ -32,12 +32,12 @@ class ProblemRoute extends React.Component {
     return (
       <div>
         <Title title='线路问题' />
-        <CardWithTitle
+        <ProblemTitle
           title='nihao'
           component='sds'
         >
           你好
-        </CardWithTitle>
+        </ProblemTitle>
       </div>
     );
   }
