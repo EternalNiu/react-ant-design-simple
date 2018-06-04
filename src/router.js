@@ -27,15 +27,15 @@ export default class Router extends React.Component {
   constructor(props, context) {
     super(props);
 
-    this.ListPage = lodable({
+    this.HomePage = lodable({
       loader: () => {
         injectAsyncReducer( // Aynchronously load reducer
           context.store,
-          'list', // Reducer name
-          require('./List/reducer').default // Reducer function
+          'home', // Reducer name
+          require('./Home/reducer').default // Reducer function
         );
 
-        return import('./List/container');
+        return import('./Home/container');
       },
       loading: () => {
         return <div>Loading...</div>;
@@ -66,25 +66,20 @@ export default class Router extends React.Component {
       <AppFrame
         navs={[{
           icon: <use href="#icon-icon_line"></use>,
-          matchPath: /(^\/list$)|(^\/$)/,
-          path: '/list',
-          text: '线路管理',
-        }, {
-          icon: <use href="#icon-icon_line"></use>,
           matchPath: /(^\/problemRoute$)|(^\/$)/,
           path: '/problemRoute',
           text: '问题线路',
         }]}
         rootUrl={{
-          matchPath: /(^\/list$)|(^\/$)/,
+          matchPath: /(^\/home$)|(^\/$)/,
           path: '/home',
         }}
       >
         <Switch>
           <Route exact path='/' render={() => (
-            <Redirect to='/list' />
+            <Redirect to='/home' />
           )} />
-          <Route exact path="/list" component={this.ListPage} />
+          <Route exact path="/home" component={this.HomePage} />
           <Route exact path="/problemRoute" component={this.ProblemRoute} />
         </Switch>
       </AppFrame>
