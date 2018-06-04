@@ -9,7 +9,7 @@ const {
   fetchQuestionsSuccess,
   fetchQuestionsFailure,
 
-  FETCH_LIES,
+  FETCH_LINES,
   fetchLinesSuccess,
   fetchLinesFailure,
 
@@ -23,7 +23,21 @@ function* fetchQuestions() {
     // const response = yield requestProtected('index/statistics');
     const response = {
       data: {
-
+        total: {
+          float: 'up',
+          count: 10,
+          percent: '30%',
+        },
+        route: {
+          float: 'up',
+          count: 10,
+          percent: '30%',
+        },
+        bus: {
+          float: 'down',
+          count: 8,
+          percent: '30%',
+        },
       },
     };
 
@@ -74,7 +88,7 @@ function* fetchPies(options) {
  */
 export default function* () {
   yield takeEvery(FETCH_QUESTIONS, fetchQuestions);
-  yield takeEvery(FETCH_LIES, fetchLines);
+  yield takeEvery(FETCH_LINES, fetchLines);
   yield takeEvery(FETCH_PIES, fetchPies);
 }
 
