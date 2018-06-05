@@ -25,12 +25,21 @@ export function* fetchFilter() {
     // const response = yield requestProtected('bus/filters');
     const response = yield {
       data: [{
-        type: '状态',
+        typeName: '状态',
         lists: [{
           name: '已处理',
           id: 1002,
         }, {
           name: '未处理',
+          id: 1003,
+        }],
+      }, {
+        typeName: '公司',
+        lists: [{
+          name: '我是一个大公司',
+          id: 1002,
+        }, {
+          name: '阿里巴巴网易腾讯百度',
           id: 1003,
         }],
       }],

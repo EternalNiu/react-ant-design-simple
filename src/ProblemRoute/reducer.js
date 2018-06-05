@@ -14,63 +14,66 @@ const {
 
 const {
   ADD_CONDITION,
+  CHANGE_CHIPS,
+  CHANGE_FILTER,
   CHANGE_LIMIT,
   CHANGE_TAB_TITLE,
   CHANGE_PAGE,
   REMOVE_CONDITION,
+  RESET_STORE,
 } = sync;
 /**
  * Initial state value of react store
  */
 const initialState = {
   columns: [
-      {
-        id: 'routeName',
-        label: '线路名称',
-        isCheck: true,
-      },
-      {
-        id: 'routeNo',
-        label: '线路号',
-        isCheck: true,
-      },
-      {
-        id: 'startStop',
-        label: '起点站',
-        isCheck: true,
-      },
-      {
-        id: 'endStop',
-        label: '终点站',
-        isCheck: true,
-      },
-      {
-        id: 'company',
-        label: '公司',
-        isCheck: true,
-      },
-      {
-        id: 'problemType',
-        label: '问题类型',
-        isCheck: true,
-      },
-      {
-        id: 'detail',
-        label: '详情',
-        isCheck: true,
-      },
-      {
-        id: 'dispose',
-        label: '处理状态',
-        isCheck: true,
-      },
-      {
-        id: 'error',
-        label: '误报',
-        isCheck: true,
-        isNumeric: true,
-      },
-    ],
+    {
+      id: 'routeName',
+      label: '线路名称',
+      isCheck: true,
+    },
+    {
+      id: 'routeNo',
+      label: '线路号',
+      isCheck: true,
+    },
+    {
+      id: 'startStop',
+      label: '起点站',
+      isCheck: true,
+    },
+    {
+      id: 'endStop',
+      label: '终点站',
+      isCheck: true,
+    },
+    {
+      id: 'company',
+      label: '公司',
+      isCheck: true,
+    },
+    {
+      id: 'problemType',
+      label: '问题类型',
+      isCheck: true,
+    },
+    {
+      id: 'detail',
+      label: '详情',
+      isCheck: true,
+    },
+    {
+      id: 'dispose',
+      label: '处理状态',
+      isCheck: true,
+    },
+    {
+      id: 'error',
+      label: '误报',
+      isCheck: true,
+      isNumeric: true,
+    },
+  ],
   conditions: [],
   routes: {
     data: [],
@@ -87,6 +90,44 @@ const initialState = {
 
 function addCondition(state, action) {
   return [...state, action.payload];
+}
+
+function changeChips(state, action) {
+  const filterList = state.data.map((type) => {
+    return {
+      ...type,
+      lists: type.typeName !== action.payload.typeName ?
+        type.lists : type.lists.map((list) => ({
+        ...list,
+        isCheck: list.name === action.payload.name
+          && list.id === action.payload.id ? false : list.isCheck,
+      })),
+    };
+  });
+
+  return {
+    ...state,
+    data: filterList,
+  };
+}
+
+function changeFilter(state, action) {
+  const filterList = state.data.map((type) => {
+    return {
+      ...type,
+      lists: type.typeName !== action.payload.typeName ?
+        type.lists : type.lists.map((list) => ({
+        ...list,
+        isCheck: list.name === action.payload.name
+          && list.id === action.payload.id ? !action.payload.isCheck : list.isCheck,
+      })),
+    };
+  });
+
+  return {
+    ...state,
+    data: filterList,
+  };
 }
 
 function changeLimit(state, action) {
@@ -122,7 +163,15 @@ function fetchFilters(state, action) {
     case FETCH_FILTERS_SUCCESS:
       return {
         ...state,
-        data: action.payload.data,
+        data: action.payload.data.map((type) => {
+          return {
+            typeName: type.typeName,
+            lists: type.lists.map((list) => ({
+              ...list,
+              isCheck: false,
+            })),
+          };
+        }),
       };
     case FETCH_FILTERS_FAILURE:
       return {
@@ -177,6 +226,16 @@ export default function Reducer(state=initialState, action) {
         ...state,
         conditions: addCondition(state.conditions, action),
       };
+    case CHANGE_CHIPS:
+      return {
+        ...state,
+        filters: changeChips(state.filters, action),
+      };
+    case CHANGE_FILTER:
+      return {
+        ...state,
+        filters: changeFilter(state.filters, action),
+      };
     case CHANGE_PAGE:
       return {
         ...state,
@@ -211,6 +270,8 @@ export default function Reducer(state=initialState, action) {
         ...state,
         conditions: removeCondition(state.conditions, action),
       };
+    case RESET_STORE:
+      return initialState;
     default:
       return state;
   }

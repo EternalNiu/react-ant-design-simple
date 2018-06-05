@@ -10,6 +10,7 @@ const {
 const {
   changeLimit,
   changePage,
+  resetStore,
 } = sync;
 
 const mapStateToProps = (state, ownProps) => {
@@ -30,7 +31,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(fetchProblemRoute());
     },
     onComponentWillUnmount: () => {
-
+      dispatch(resetStore());
     },
     onPageChange: (param) => {
       dispatch(changePage(param));
