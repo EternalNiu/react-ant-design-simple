@@ -1,5 +1,7 @@
 import React from 'react';
 import {
+  array,
+  func,
   object,
   node,
 } from 'prop-types';
@@ -12,8 +14,10 @@ import {
   withStyles,
 } from '@material-ui/core';
 import classNames from 'classnames';
-import TabShowList from '../TabShowList';
 import Chip from 'ibuscloud-ui/Chip';
+
+import TabShowList from '../TabShowList';
+import Filters from '../Filters';
 
 const styles = (theme) => ({
   title: {
@@ -57,7 +61,10 @@ const styles = (theme) => ({
 class ProblemTitle extends React.Component {
   static propTypes = {
     classes: object,
+    conditions: array.isRequired,
     children: node,
+    changeFilter: func.isRequired,
+    removeCondition: func.isRequired,
   };
 
   static defaultProps = {
@@ -78,10 +85,23 @@ class ProblemTitle extends React.Component {
   }
 
   /**
-   * [handleDelete description]
+   * [handleChipRemove description]
+   * @param  {object} condition - 去除卡片类型
    */
-  handleChipRemove() {
-    console.log(2);
+  handleChipRemove(condition) {
+    const {
+      conditions,
+      changeFilter,
+      removeCondition,
+    } = this.props;
+
+    const conditionIndexToRemove = conditions.findIndex((checkedList) => {
+      // Filter id and condition id are joint primary key
+      return checkedList.name === condition.name && checkedList.id === condition.id;
+    });
+      // Delete from selected conditions
+    removeCondition({index: conditionIndexToRemove});
+    changeFilter(condition);
   }
 
   /**
@@ -151,6 +171,7 @@ class ProblemTitle extends React.Component {
   render() {
     const {
       classes,
+      conditions,
       children,
     } = this.props;
 
@@ -172,11 +193,15 @@ class ProblemTitle extends React.Component {
               问题线路
             </Grid>
             <Grid item>
-              <Chip
-                key={12}
-                label='测试'
-                onDelete={this.handleChipRemove.bind(this)}
-              />
+              {
+                conditions.map((condition, index) => (
+                  <Chip
+                  key={index}
+                  label={condition.typeName + ' : ' + condition.name}
+                  onDelete={this.handleChipRemove.bind(this, condition)}
+                />
+                ))
+              }
             </Grid>
           </Grid>
           <Grid item className={classes.rightPaper}>
@@ -187,26 +212,26 @@ class ProblemTitle extends React.Component {
                 </SvgIcon>
               </IconButton>
               <form
-            className={classNames(classes.searchInputContainer, {
-              [classes.searchInputVisible]: isSearchInputVisible,
-              [classes.searchInputHidden]: !isSearchInputVisible,
-            })}
-            onSubmit={this.handleSearch.bind(this)}
-          >
-            <TextField
-              placeholder='站内搜索'
-              inputRef={this.setSearchInputDom.bind(this)}
-              value={searchInputValue}
-              onBlur={this.hideSearchInput.bind(this)}
-              onChange={this.handleSearchInputChange.bind(this)}
-            />
-          </form>
+                className={classNames(classes.searchInputContainer, {
+                  [classes.searchInputVisible]: isSearchInputVisible,
+                  [classes.searchInputHidden]: !isSearchInputVisible,
+                })}
+                onSubmit={this.handleSearch.bind(this)}
+              >
+                <TextField
+                  placeholder='站内搜索'
+                  inputRef={this.setSearchInputDom.bind(this)}
+                  value={searchInputValue}
+                  onBlur={this.hideSearchInput.bind(this)}
+                  onChange={this.handleSearchInputChange.bind(this)}
+                />
+              </form>
             </Grid>
             <Grid item>
               <TabShowList />
             </Grid>
             <Grid item>
-              <TabShowList />
+              <Filters />
             </Grid>
           </Grid>
         </Grid>
