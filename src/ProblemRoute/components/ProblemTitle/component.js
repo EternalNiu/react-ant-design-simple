@@ -9,11 +9,10 @@ import {
   IconButton,
   SvgIcon,
   TextField,
-  Tooltip,
   withStyles,
 } from '@material-ui/core';
-import FilterListIcon from '@material-ui/icons/FilterList';
 import classNames from 'classnames';
+import TabShowList from '../TabShowList';
 import Chip from 'ibuscloud-ui/Chip';
 
 const styles = (theme) => ({
@@ -73,7 +72,6 @@ class ProblemTitle extends React.Component {
     super(props);
 
     this.state= {
-      open: false,
       isSearchInputVisible: false,
       searchInputValue: '',
     };
@@ -84,13 +82,6 @@ class ProblemTitle extends React.Component {
    */
   handleChipRemove() {
     console.log(2);
-  }
-
-  /**
-   * [handleToggle description]
-   */
-  handleToggle() {
-    this.setState({open: !this.state.open});
   }
 
   /**
@@ -212,18 +203,10 @@ class ProblemTitle extends React.Component {
           </form>
             </Grid>
             <Grid item>
-              <Tooltip title="List show">
-                <IconButton aria-label="List show">
-                  <FilterListIcon />
-                </IconButton>
-              </Tooltip>
+              <TabShowList />
             </Grid>
             <Grid item>
-              <Tooltip title="Filter list">
-                <IconButton aria-label="Filter list">
-                  <FilterListIcon />
-                </IconButton>
-              </Tooltip>
+              <TabShowList />
             </Grid>
           </Grid>
         </Grid>

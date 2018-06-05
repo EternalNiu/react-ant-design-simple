@@ -14,7 +14,9 @@ const {
 
 const {
   ADD_CONDITION,
+  CHANGE_LIMIT,
   CHANGE_TAB_TITLE,
+  CHANGE_PAGE,
   REMOVE_CONDITION,
 } = sync;
 /**
@@ -25,38 +27,47 @@ const initialState = {
       {
         id: 'routeName',
         label: '线路名称',
+        isCheck: true,
       },
       {
         id: 'routeNo',
         label: '线路号',
+        isCheck: true,
       },
       {
         id: 'startStop',
         label: '起点站',
+        isCheck: true,
       },
       {
         id: 'endStop',
         label: '终点站',
+        isCheck: true,
       },
       {
         id: 'company',
         label: '公司',
+        isCheck: true,
       },
       {
         id: 'problemType',
         label: '问题类型',
+        isCheck: true,
       },
       {
         id: 'detail',
         label: '详情',
+        isCheck: true,
       },
       {
         id: 'dispose',
         label: '处理状态',
+        isCheck: true,
       },
       {
         id: 'error',
         label: '误报',
+        isCheck: true,
         isNumeric: true,
       },
     ],
@@ -76,6 +87,29 @@ const initialState = {
 
 function addCondition(state, action) {
   return [...state, action.payload];
+}
+
+function changeLimit(state, action) {
+  return {
+    ...state,
+    limit: action.payload,
+  };
+}
+
+function changePage(state, action) {
+  return {
+    ...state,
+    page: action.payload.page,
+  };
+}
+
+function changeTabTitle(state, action) {
+  const title = state.map((theadName) => ({
+    ...theadName,
+    isCheck: theadName.label === action.payload.label
+      ? !theadName.isCheck : theadName.isCheck,
+  }));
+  return title;
 }
 
 function fetchFilters(state, action) {
@@ -142,6 +176,21 @@ export default function Reducer(state=initialState, action) {
       return {
         ...state,
         conditions: addCondition(state.conditions, action),
+      };
+    case CHANGE_PAGE:
+      return {
+        ...state,
+        routes: changePage(state.routes, action),
+      };
+    case CHANGE_LIMIT:
+      return {
+        ...state,
+        routes: changeLimit(state.routes, action),
+      };
+    case CHANGE_TAB_TITLE:
+      return {
+        ...state,
+        columns: changeTabTitle(state.columns, action),
       };
     case FETCH_FILTERS:
     case FETCH_FILTERS_SUCCESS:

@@ -2,6 +2,7 @@ import React from 'react';
 import {
   array,
   func,
+  number,
   object,
 } from 'prop-types';
 import {
@@ -16,9 +17,7 @@ import Title from 'Common/Title';
 import ProblemTitle from './components/ProblemTitle/index';
 
 const styles = (theme) => ({
-  columns: {
-    background: '#fff',
-  },
+
 });
 
 /**
@@ -28,36 +27,15 @@ const styles = (theme) => ({
 @withStyles(styles)
 class ProblemRoute extends React.Component {
   static propTypes = {
+    changeLimit: func.isRequired,
     classes: object,
     columns: array.isRequired,
+    limit: number.isRequired,
     onComponentDidMount: func.isRequired,
     onComponentWillUnmount: func.isRequired,
+    onPageChange: func.isRequired,
+    routes: array.isRequired,
   };
-
-  /**
-   * [constructor description]
-   * @param  {[type]} props [description]
-   */
-  constructor(props) {
-    super(props);
-
-    this.data = [{
-      id: 120021,
-      routeName: '1路',
-      routeNo: '10001',
-      startStop: '凤起路',
-      endStop: '滨河路',
-      company: '公交云',
-      problemType: '没有直达线路',
-      detail: '能不能加一班公交',
-      dispose: '处理状态',
-      error: '错误',
-    }];
-
-    this.state = {
-      checked: false,
-    };
-  }
 
    /**
    * componentDidMount
@@ -89,7 +67,30 @@ class ProblemRoute extends React.Component {
    * @param  {[type]} routeId [description]
    */
   resetClick(routeId) {
-    console.log(routeId);
+
+  }
+
+  /**
+   * [handlePageChange description]
+   * @param  {object} event
+   * @param  {number} page  - 当前页数
+   */
+  handlePageChange(event, page) {
+    const {
+      onPageChange,
+    } = this.props;
+
+    onPageChange({
+      page: page + 1, // Table组件的page从0开始
+    });
+  }
+
+  /**
+   * [handleRowsPerPageChange description]
+   * @param {object} event
+   */
+  handleRowsPerPageChange(event) {
+    this.props.changeLimit(event.target.value);
   }
 
   /**
@@ -100,11 +101,15 @@ class ProblemRoute extends React.Component {
     const {
       classes,
       columns,
+      limit,
+      routes,
     } = this.props;
 
-    const {checked} = this.state;
+    const tabTitle = columns.filter((column) => {
+      return column.isCheck === true;
+    });
 
-    const data = this.data.map((route) => {
+    const data = routes.map((route) => {
       return {
         ...route,
         routeName: route.routeName,
@@ -116,7 +121,7 @@ class ProblemRoute extends React.Component {
         detail: route.detail,
         dispose: (
           <Switch
-            checked={checked}
+            checked={false}
             onChange={this.handleChange.bind(this)}
             value="checked"
             color="primary"
@@ -139,15 +144,15 @@ class ProblemRoute extends React.Component {
         <Title title='线路问题' />
         <ProblemTitle
           title='nihao'
-          component='sds'
         >
           <Table
-            defaultRowsPerPage={0}
-            columns={columns}
+            columns={tabTitle}
+            defaultRowsPerPage={10}
+            isPaginable={true}
+            onChangePage={this.handlePageChange.bind(this)}
+            onChangeRowsPerPage={this.handleRowsPerPageChange.bind(this)}
             rows={data}
-            classes={{
-              tableCellRoot: classes.columns,
-            }}
+            total={1000}
           />
         </ProblemTitle>
       </div>

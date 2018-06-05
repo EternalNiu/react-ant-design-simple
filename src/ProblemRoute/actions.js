@@ -12,7 +12,9 @@ export const sync = new Sync({
   prefix: 'routeList',
   actions: [
     'addCondition',
+    'changeLimit',
     'changeTabTitle',
+    'changePage',
     'removeCondition',
   ],
 });

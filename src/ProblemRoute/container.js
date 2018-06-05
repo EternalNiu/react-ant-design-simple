@@ -3,22 +3,37 @@ import {connect} from 'react-redux';
 import Component from './component';
 import {async, sync} from './actions';
 const {
+  fetchFilters,
   fetchProblemRoute,
 } = async;
+
+const {
+  changeLimit,
+  changePage,
+} = sync;
 
 const mapStateToProps = (state, ownProps) => {
   return {
     columns: state.problemRoute.columns,
+    limit: state.problemRoute.routes.limit,
+    routes: state.problemRoute.routes.data,
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    changeLimit: (param) => {
+      dispatch(changeLimit(param));
+    },
     onComponentDidMount: () => {
+      dispatch(fetchFilters());
       dispatch(fetchProblemRoute());
     },
     onComponentWillUnmount: () => {
 
+    },
+    onPageChange: (param) => {
+      dispatch(changePage(param));
     },
   };
 };
