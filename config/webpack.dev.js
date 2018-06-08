@@ -13,7 +13,6 @@ module.exports = merge(common, {
     contentBase: path.appDist,
     historyApiFallback: true,
     hot: true,
-    port: 9000,
   },
 
   plugins: [
