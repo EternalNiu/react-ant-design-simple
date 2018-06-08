@@ -41,6 +41,20 @@ export default class Router extends React.Component {
       },
     });
 
+    this.AppLayout = lodable({
+      loader: () => {
+        injectAsyncReducer( // Aynchronously load reducer
+          context.store,
+          'appLayout', // Reducer name
+          require('./AppLayout/reducer').default // Reducer function
+        );
+
+        return import('./AppLayout/container');
+      },
+      loading: () => {
+        return <div>Loading...</div>;
+      },
+    });
   }
 
   /**
@@ -50,8 +64,9 @@ export default class Router extends React.Component {
     return (
       <Switch>
         <Route exact path='/' render={() => (
-          <Redirect to='/list' />
+          <Redirect to='/appLayout' />
         )} />
+        <Route exact path="/appLayout" component={this.AppLayout} />
         <Route exact path="/list" component={this.List} />
       </Switch>
     );
