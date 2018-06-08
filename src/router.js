@@ -7,7 +7,6 @@ import {
 import {object} from 'prop-types';
 import lodable from 'react-loadable';
 
-import AppFrame from './AppFrame/container';
 
 // Dynamically load reducer
 import injectAsyncReducer from './injectAsyncReducer';
@@ -27,35 +26,21 @@ export default class Router extends React.Component {
   constructor(props, context) {
     super(props);
 
-    this.HomePage = lodable({
+    this.List = lodable({
       loader: () => {
         injectAsyncReducer( // Aynchronously load reducer
           context.store,
-          'home', // Reducer name
-          require('./Home/reducer').default // Reducer function
+          'list', // Reducer name
+          require('./List/reducer').default // Reducer function
         );
 
-        return import('./Home/container');
+        return import('./List/container');
       },
       loading: () => {
         return <div>Loading...</div>;
       },
     });
 
-    this.ProblemRoute = lodable({
-      loader: () => {
-        injectAsyncReducer( // Aynchronously load reducer
-          context.store,
-          'problemRoute', // Reducer name
-          require('./ProblemRoute/reducer').default // Reducer function
-        );
-
-        return import('./ProblemRoute/container');
-      },
-      loading: () => {
-        return <div>Loading...</div>;
-      },
-    });
   }
 
   /**
@@ -63,26 +48,12 @@ export default class Router extends React.Component {
    */
   render() {
     return (
-      <AppFrame
-        navs={[{
-          icon: <use href="#icon-icon_line"></use>,
-          matchPath: /(^\/problemRoute$)|(^\/$)/,
-          path: '/problemRoute',
-          text: '问题线路',
-        }]}
-        rootUrl={{
-          matchPath: /(^\/home$)|(^\/$)/,
-          path: '/home',
-        }}
-      >
-        <Switch>
-          <Route exact path='/' render={() => (
-            <Redirect to='/home' />
-          )} />
-          <Route exact path="/home" component={this.HomePage} />
-          <Route exact path="/problemRoute" component={this.ProblemRoute} />
-        </Switch>
-      </AppFrame>
+      <Switch>
+        <Route exact path='/' render={() => (
+          <Redirect to='/list' />
+        )} />
+        <Route exact path="/list" component={this.List} />
+      </Switch>
     );
   }
 }

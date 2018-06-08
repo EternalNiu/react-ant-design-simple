@@ -4,17 +4,11 @@ import {
   number,
   func,
 } from 'prop-types';
-import {withStyles} from '@material-ui/core';
+import {DatePicker} from 'antd';
+import 'antd/dist/antd.css';
 import {hot} from 'react-hot-loader';
 
-const styles = (theme) => ({
-  root: {
-    color: 'orange',
-  },
-});
-
 @hot(module)
-@withStyles(styles)
 /**
  * List Page
  */
@@ -37,13 +31,10 @@ export default class List extends React.Component {
    * @return {Component}
    */
   render() {
-    const {
-      classes,
-    } = this.props;
-
     return (
       <div>
-        <div className={classes.root}>JSS demo</div>  
+        <div >JSS demokjhjkghjgjkdhjkasfhkajsfhsdakfjsdjhkfsafsadf</div>
+        <DatePicker />
       </div>
     );
   }
