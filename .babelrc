@@ -8,8 +8,8 @@
     "react-hot-loader/babel",
     "transform-decorators-legacy",
     ["direct-import", [
-      "antd",
       "react-router-dom"
-    ]]
+    ]],
+    ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": true }]
   ]
 }
