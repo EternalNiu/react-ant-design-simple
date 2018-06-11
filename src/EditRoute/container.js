@@ -1,16 +1,20 @@
 import {connect} from 'react-redux';
 
 import Component from './component';
-
+import {
+  fetchSomeAsyncRequest,
+} from './actions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
+    count: state.editRoute.count,
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     fetchSomeAsyncRequest: () => {
+      dispatch(fetchSomeAsyncRequest());
     },
   };
 };

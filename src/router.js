@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import {object} from 'prop-types';
 import lodable from 'react-loadable';
-
+import AppLayout from './AppLayout/container';
 
 // Dynamically load reducer
 import injectAsyncReducer from './injectAsyncReducer';
@@ -41,15 +41,15 @@ export default class Router extends React.Component {
       },
     });
 
-    this.AppLayout = lodable({
+    this.EditRoute = lodable({
       loader: () => {
         injectAsyncReducer( // Aynchronously load reducer
           context.store,
-          'appLayout', // Reducer name
-          require('./AppLayout/reducer').default // Reducer function
+          'editRoute', // Reducer name
+          require('./EditRoute/reducer').default // Reducer function
         );
 
-        return import('./AppLayout/container');
+        return import('./EditRoute/container');
       },
       loading: () => {
         return <div>Loading...</div>;
@@ -62,13 +62,51 @@ export default class Router extends React.Component {
    */
   render() {
     return (
-      <Switch>
-        <Route exact path='/' render={() => (
-          <Redirect to='/appLayout' />
-        )} />
-        <Route exact path="/appLayout" component={this.AppLayout} />
-        <Route exact path="/list" component={this.List} />
-      </Switch>
+      <AppLayout
+        navs={[{
+          icon: 'pie-chart',
+          matchPath: /^\/editRoute$/,
+          path: '/editRoute',
+          text: '线路管理',
+        }, {
+          icon: 'fork',
+          matchPath: /^\/stops$/,
+          path: '/stops',
+          text: '站点管理',
+        }, {
+          icon: 'car',
+          matchPath: /^\/buses$/,
+          path: '/buses',
+          text: '车辆管理',
+        }, {
+          icon: 'wifi',
+          matchPath: /^\/infoManage$/,
+          path: '/infoManage',
+          text: '信息管理',
+        }, {
+          icon: 'tool',
+          matchPath: /^\/drafts$/,
+          path: '/drafts',
+          text: '变更申请',
+        }, {
+          icon: 'flag',
+          matchPath: /^\/verifications$/,
+          path: '/verifications',
+          text: '变更审核',
+        }]}
+        rootUrl={{
+          matchPath: /(^\/home$)|(^\/$)/,
+          path: '/home',
+        }}
+      >
+        <Switch>
+          <Route exact path='/' render={() => (
+            <Redirect to='/list' />
+          )} />
+          <Route exact path="/list" component={this.List} />
+          <Route exact path="/editRoute" component={this.EditRoute} />
+        </Switch>
+      </AppLayout>
     );
   }
 }

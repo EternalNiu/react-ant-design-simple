@@ -5,7 +5,6 @@ import {
   func,
 } from 'prop-types';
 import {DatePicker} from 'antd';
-import 'antd/dist/antd.css';
 import {hot} from 'react-hot-loader';
 
 @hot(module)

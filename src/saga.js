@@ -1,6 +1,7 @@
 import {all} from 'redux-saga/effects';
 
 import appLayout from './AppLayout/saga';
+import editRoute from './EditRoute/saga';
 import list from './List/saga';
 
 
@@ -10,6 +11,7 @@ import list from './List/saga';
 export default function* rootSaga() {
   yield all([
     appLayout(),
+    editRoute(),
     list(),
   ]);
 }
