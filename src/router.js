@@ -72,7 +72,7 @@ export default class Router extends React.Component {
           icon: 'pie-chart',
           matchPath: /^\/list$/,
           path: '/list',
-          text: '线路管理',
+          text: '线路列表',
         }]}
         rootUrl={{
           matchPath: /(^\/list$)|(^\/$)/,
