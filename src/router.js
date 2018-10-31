@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import {object} from 'prop-types';
 import lodable from 'react-loadable';
-import AppLayout from './AppLayout/container';
+import AppFrame from './AppFrame/container';
 
 // Dynamically load reducer
 import injectAsyncReducer from './injectAsyncReducer';
@@ -62,41 +62,21 @@ export default class Router extends React.Component {
    */
   render() {
     return (
-      <AppLayout
+      <AppFrame
         navs={[{
           icon: 'pie-chart',
           matchPath: /^\/editRoute$/,
           path: '/editRoute',
           text: '线路管理',
         }, {
-          icon: 'fork',
-          matchPath: /^\/stops$/,
-          path: '/stops',
-          text: '站点管理',
-        }, {
-          icon: 'car',
-          matchPath: /^\/buses$/,
-          path: '/buses',
-          text: '车辆管理',
-        }, {
-          icon: 'wifi',
-          matchPath: /^\/infoManage$/,
-          path: '/infoManage',
-          text: '信息管理',
-        }, {
-          icon: 'tool',
-          matchPath: /^\/drafts$/,
-          path: '/drafts',
-          text: '变更申请',
-        }, {
-          icon: 'flag',
-          matchPath: /^\/verifications$/,
-          path: '/verifications',
-          text: '变更审核',
+          icon: 'pie-chart',
+          matchPath: /^\/list$/,
+          path: '/list',
+          text: '线路管理',
         }]}
         rootUrl={{
-          matchPath: /(^\/home$)|(^\/$)/,
-          path: '/home',
+          matchPath: /(^\/list$)|(^\/$)/,
+          path: '/list',
         }}
       >
         <Switch>
@@ -106,7 +86,7 @@ export default class Router extends React.Component {
           <Route exact path="/list" component={this.List} />
           <Route exact path="/editRoute" component={this.EditRoute} />
         </Switch>
-      </AppLayout>
+      </AppFrame>
     );
   }
 }

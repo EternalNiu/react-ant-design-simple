@@ -12,8 +12,11 @@ import logger from 'redux-logger';
 import configureStore from './store';
 import App from './app';
 import rootSaga from './saga';
+import {LocaleProvider} from 'antd';
+import zh_CN from 'antd/lib/locale-provider/zh_CN';
 
 import './iconfont';
+const china = zh_CN;
 /**
  * Contains HTML5 browser history instance
  */
@@ -46,9 +49,11 @@ sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>
+   <LocaleProvider locale={china}>
     <ConnectedRouter history={history}>
       <App />
     </ConnectedRouter>
+    </LocaleProvider>
   </Provider>,
   document.getElementById('app')
 );

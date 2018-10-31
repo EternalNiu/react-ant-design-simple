@@ -1,6 +1,8 @@
 const path = require('./path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const devMode = process.env.NODE_ENV !== 'production';
 
 module.exports = {
   entry: {
@@ -17,16 +19,39 @@ module.exports = {
     rules: [
       {
         test: /\.(less)$/,
+        exclude: [/node_modules/],
         use: [{
-          loader: 'style-loader',
+          loader: devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
         }, {
           loader: 'css-loader',
+          options: {
+            modules: true,
+            importLoaders: 1,
+            localIdentName: '[local]_[hash:base64:5]',
+          },
         }, {
-          loader: 'less-loader', options: {
+          loader: 'less-loader',
+          options: {
             javascriptEnabled: true,
           },
         }],
       },
+
+      {
+        test: /\.(less)$/,
+        include: /node_modules|antd\.less/,
+        use: [{
+          loader: devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+        }, {
+          loader: 'css-loader',
+        }, {
+          loader: 'less-loader',
+          options: {
+            javascriptEnabled: true,
+          },
+        }],
+      },
+
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],

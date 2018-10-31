@@ -15,6 +15,8 @@
   "dependencies": {
     "antd": "^3.6.1",
     "babel-polyfill": "^6.26.0",
+    "common-tags": "^1.8.0",
+    "css-element-queries": "^1.0.2",
     "history": "^4.7.2",
     "prop-types": "^15.6.1",
     "rc-form": "^2.2.0",
@@ -52,6 +54,7 @@
     "jsdoc": "^3.5.5",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
+    "mini-css-extract-plugin": "^0.4.0",
     "postcss-loader": "^2.1.5",
     "style-loader": "^0.21.0",
     "url-loader": "^1.0.1",

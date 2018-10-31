@@ -6,5 +6,3 @@ export {
   Component,
   Container,
 };
-
-export default Reducer;
