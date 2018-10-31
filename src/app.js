@@ -1,18 +1,7 @@
 import React from 'react';
 import {hot} from 'react-hot-loader';
-import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 import Router from './router';
-
-const mapStateToProps = (state, ownProps) => {
-  return {
-  };
-};
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-  };
-};
 
 /**
  * App
@@ -35,7 +24,6 @@ class App extends React.Component {
  * App
  */
 @withRouter
-@connect(mapStateToProps, mapDispatchToProps)
 class Container extends App {
 }
 

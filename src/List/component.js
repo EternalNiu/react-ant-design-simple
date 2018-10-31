@@ -32,7 +32,7 @@ export default class List extends React.Component {
   render() {
     return (
       <div>
-        <div >JSS demokjhjkghjgjkdhjkasfhkajsfhsdakfjsdjhkfsafsadf</div>
+        <div>Table Component</div>
         <DatePicker />
       </div>
     );
